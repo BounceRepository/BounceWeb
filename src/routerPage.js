@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Dashboard from './pages/dashboard/dashboard'
 import LandingPage1 from './pages/landingpage/landingPage1'
 import LandingPage2 from './pages/landingpage/landingPage2'
 import LandingPage3 from './pages/landingpage/landingPage3'
@@ -16,6 +17,7 @@ export default function RouterPage() {
           <Route path="/register" element={<Register />} />
           <Route path="/welcome" element={<LandingPage2 />} />
           <Route path="/disclaimer" element={<LandingPage3 />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
     </>
   )

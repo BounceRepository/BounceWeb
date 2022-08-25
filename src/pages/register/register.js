@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 import { Logo } from '../../icons/logo';
 import { Apple } from '../../icons/apple';
 import { makeStyles } from '@mui/styles';
+import api from '../../utils/api';
 
 const useStyles = makeStyles({
   flexGrow: {
@@ -34,12 +35,19 @@ const useStyles = makeStyles({
 export default function Login() {
   const classes = useStyles()
   const router = useNavigate()
+
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      username: '',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
+      username: Yup
+        .string()
+        .max(255)
+        .required(
+          'Username is required'),
       email: Yup
         .string()
         .email(
@@ -50,11 +58,26 @@ export default function Login() {
       password: Yup
         .string()
         .max(255)
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+          "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+        )
         .required(
           'Password is required')
     }),
-    onSubmit: () => {
-      router('/');
+    onSubmit: async () => {
+      const payload = {
+        username: formik.values.username,
+        email: formik.values.email,
+        password: formik.values.password
+      }
+      const response = await api.Auth.register(payload);
+      console.log({ response })
+      if (response.success) {
+        // const respons = await api.Auth.validate(response?.data?.token);
+        // console.log({ respons })
+        router('/login');
+      }
     }
   });
 

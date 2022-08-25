@@ -8,23 +8,26 @@ import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[3]
+  // backgroundColor: theme.palette.background.paper,
+  // boxShadow: theme.shadows[3]
 }));
 
 export const DashboardNavbar = (props) => {
-  const { onSidebarOpen, ...other } = props;
+  const { onSidebarOpen, mininize, onSidebarMin, ...other } = props;
+  const auth = JSON.parse(window.localStorage.getItem('auth'));
+const admin= auth.role === "Administrator"
 
   return (
     <>
       <DashboardNavbarRoot
         sx={{
           left: {
-            lg: 280
+            lg: `${ mininize? 100: 280 }`
           },
           width: {
-            lg: 'calc(100% - 280px)'
-          }
+            lg: `calc(100% - ${mininize? "100px": "230px"})`
+          },
+          backgroundColor:`${admin? "#FFFFF":"#EF873D"}`
         }}
         {...other}>
         <Toolbar
@@ -41,6 +44,17 @@ export const DashboardNavbar = (props) => {
               display: {
                 xs: 'inline-flex',
                 lg: 'none'
+              }
+            }}
+          >
+            <MenuIcon fontSize="small" />
+          </IconButton>
+          <IconButton
+            onClick={onSidebarMin}
+            sx={{
+              display: {
+                xs: 'none',
+                lg: 'inline-flex'
               }
             }}
           >
@@ -85,5 +99,7 @@ export const DashboardNavbar = (props) => {
 };
 
 DashboardNavbar.propTypes = {
-  onSidebarOpen: PropTypes.func
+  onSidebarOpen: PropTypes.func,
+  onSidebarMin: PropTypes.func,
+  mininize: PropTypes.bool
 };

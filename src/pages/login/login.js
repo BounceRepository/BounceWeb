@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 import { Logo } from '../../icons/logo';
 import { Apple } from '../../icons/apple';
 import { makeStyles } from '@mui/styles';
+import api from '../../utils/api';
 
 const useStyles = makeStyles({
   flexGrow: {
@@ -34,27 +35,32 @@ const useStyles = makeStyles({
 export default function Login() {
   const classes = useStyles()
   const router = useNavigate()
+
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      username: '',
+      password: '',
     },
     validationSchema: Yup.object({
-      email: Yup
+      username: Yup
         .string()
-        .email(
-          'Must be a valid email')
         .max(255)
         .required(
-          'Email is required'),
+          'Username is required'),
       password: Yup
         .string()
         .max(255)
         .required(
           'Password is required')
     }),
-    onSubmit: () => {
-      router('/');
+    onSubmit: async() => {
+      const response = await api.Auth.login(formik.values.username, formik.values.password);
+      console.log({ response })
+      if (response.success) {
+        api.Auth.saveAuthData(response.data)
+        router('/dashboard');
+
+      }
     }
   });
 
@@ -91,17 +97,17 @@ export default function Login() {
             </Box>
             <TextField
               sx={{ backgroundColor: "#FAD6BD" }}
-              error={Boolean(formik.touched.email && formik.errors.email)}
+              error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Email Address"
+              helperText={formik.touched.username && formik.errors.username}
+              label="Username"
               margin="normal"
-              name="email"
+              name="username"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
+              type="username"
               variant="outlined"
+              // ref="username"
             />
             <TextField
               sx={{ backgroundColor: "#FAD6BD" }}
@@ -114,8 +120,8 @@ export default function Login() {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="password"
-              value={formik.values.password}
               variant="outlined"
+              // ref="password"
             />
             <Box sx={{ py: 2 }}>
               <Button
