@@ -11,8 +11,8 @@ export default function RouterPage() {
   return (
     <>
           <Routes>
-          <Route path="/" element={<LandingPage1 />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/land" element={<LandingPage1 />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/register" element={<Register />} />
           <Route path="/welcome" element={<LandingPage2 />} />

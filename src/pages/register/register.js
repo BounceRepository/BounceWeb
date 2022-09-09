@@ -88,32 +88,86 @@ export default function Login() {
       <Helmet>
         <title>Register | Bounce</title>
       </Helmet>
-      <Box
-        component="main"
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexGrow: 1,
-          minHeight: '80%',
-        }}
-      >
-        {/* <Grid className="left-pane" item md={4} xs={12}> */}
-        <Container maxWidth="sm" sx={{ backgroundImage: `url(/static/images/bg2.jpg)` }}>
+      <Grid
+      container
+      // component="main"
+      sx={{
+        // alignItems: 'center',
+        // display: 'flex',
+        // flexGrow: 1,
+        minHeight: '100vh',
+        // backgroundColor:"#f1f4fb",
+        // position:"relative"
+      }}
+    >
+        <Grid className="left-pane" item md={4} xs={12}>
+        <Container maxWidth="sm">
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 4 }}>
-              <Typography
-                color="#583B29"
-                variant="h4"
-                sx={{ fontWeight: 'bold' }}
-              >
-                Create Account
-              </Typography>
+          <Box sx={{ my: 4 }}>
               <Box display={{ alignItems: 'center' }}>
-                <img src="/static/images/register2.png" />
+                <img src="/static/images/logo2.png" />
               </Box>
+              <Typography
+                color="#111b21"
+                variant="h5"
+                // sx={{ fontWeight: 'bold' }}
+              >
+                Register
+              </Typography>
             </Box>
+              <Grid
+              container
+              spacing={3}
+            >
+              <Grid
+                item
+                xs={6}
+                md={6}
+              >
+                <Button
+                  sx={{backgroundColor:"#f1f1f1", color:"black"}}
+                  fullWidth
+                  startIcon={<FacebookIcon />}
+                  onClick={formik.handleSubmit}
+                  size="large"
+                  variant="contained"
+                >
+                  Facebook
+                </Button>
+              </Grid>
+              <Grid
+                item
+                xs={6}
+                md={6}
+              >
+                <Button
+                  fullWidth
+                  sx={{backgroundColor:"#f1f1f1", color:"black"}}
+                  startIcon={<GoogleIcon />}
+                  onClick={formik.handleSubmit}
+                  size="large"
+                  variant="contained"
+                >
+                  Google
+                </Button>
+              </Grid>
+            </Grid>
+            <Box
+              sx={{
+                pb: 1,
+                pt: 3
+              }}
+            >
+              <Typography
+                align="center"
+                color="textSecondary"
+                variant="body1"
+              >
+                Or 
+              </Typography>
+            </Box>
+          
             <TextField
-              sx={{ backgroundColor: "#FAD6BD" }}
               error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
               helperText={formik.touched.username && formik.errors.username}
@@ -126,7 +180,6 @@ export default function Login() {
               variant="outlined"
             />
             <TextField
-              sx={{ backgroundColor: "#FAD6BD" }}
               error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
               helperText={formik.touched.email && formik.errors.email}
@@ -139,7 +192,6 @@ export default function Login() {
               variant="outlined"
             />
             <TextField
-              sx={{ backgroundColor: "#FAD6BD" }}
               error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
               helperText={formik.touched.password && formik.errors.password}
@@ -160,11 +212,11 @@ export default function Login() {
                 type="submit"
                 variant="contained"
                 sx={{
-                  backgroundColor: '#EF873D',
+                  backgroundColor: '#3b36db',
                   color: '#fff',
                   borderRadius: 8,
                   ':hover': {
-                    backgroundColor: '#F86903',
+                    backgroundColor: '#302f41',
                     color: '#fff',
                     borderRadius: 8
                   },
@@ -173,35 +225,6 @@ export default function Login() {
                 Sign Up
               </Button>
             </Box>
-            <Grid
-              container
-              spacing={1}
-              alignItems='center'
-              justifyContent='center'
-              maxWidth='md'
-            >
-              <Grid
-                item
-                xs={1}
-                md={1}
-              >
-                <FacebookIcon />
-              </Grid>
-              <Grid
-                item
-                xs={1}
-                md={1}
-              >
-                <GoogleIcon />
-              </Grid>
-              <Grid
-                item
-                xs={1}
-                md={1}
-              >
-                <Apple />
-              </Grid>
-            </Grid>
             <Typography
               color="textSecondary"
               variant="body2"
@@ -209,10 +232,10 @@ export default function Login() {
               Have an account?
               {' '}
               <NavLink
-                to="/login"
+                to="/"
               >
                 <Link
-                  to="/login"
+                  to="/"
                   variant="subtitle2"
                   underline="hover"
                   sx={{
@@ -225,12 +248,15 @@ export default function Login() {
             </Typography>
           </form>
         </Container>
-        {/* </Grid> */}
-        {/* <Grid className="right-pane"
-          display={{ xs: "none", lg: "block", alignItems: 'center', fontSize:"large"
-        }} item md={9} xs={12} sx={{ my: 10, mx: 25 }}>
-          <img src="/static/images/login.jpg" />
-        </Grid> */}
-      </Box>
+        </Grid>
+
+        <Grid className="right-pane"
+          display={{ xs: "none", lg: "block", backgroundColor:"#f1f4fb",height: "100%", width:"100%"
+        }} item md={8} xs={12} >
+          <Box sx={{ my: 16, mx: 25 }}>
+          <img src="/static/images/registerpics2.png" />
+          </Box>
+        </Grid>
+      </Grid>
     </>)
 }

@@ -14,7 +14,11 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, mininize, onSidebarMin, ...other } = props;
-  const auth = JSON.parse(window.localStorage.getItem('auth'));
+  // const auth = JSON.parse(window.localStorage.getItem('auth'));
+  const auth = {
+    role: "Administrator"
+  }
+  // auth.role = "Administrator"
 const admin= auth.role === "Administrator"
 
   return (
@@ -27,7 +31,7 @@ const admin= auth.role === "Administrator"
           width: {
             lg: `calc(100% - ${mininize? "100px": "230px"})`
           },
-          backgroundColor:`${admin? "#FFFFF":"#EF873D"}`
+          backgroundColor:`${admin? "#3b36db":"#EF873D"}`
         }}
         {...other}>
         <Toolbar
